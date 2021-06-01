@@ -25,3 +25,4 @@ Eventually data will be scraped myself, to added to the pipeline
 
 # Tasks
 1. Explore datasets to combine in single large dataset
+2. Train feature extractor with collected data
