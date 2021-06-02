@@ -8,6 +8,12 @@ The term Data Science is very generic and a job role can be very different with 
 
 To create a job recommendation system specifically for Data science, to increase the number of job applied for, that match what you are interested in.
 
+Features:
+    - Streaming data from job sites
+    - Interesting/Not interesting classification
+    - Common filters (work experience, location, etc)
+    - Feedback loop for continuous training
+
 ## Purpose
 
 The job recommendations from websites (e.g Linkedin) aren't tailored specifically for you and often times recommend jobs with other roles.
@@ -25,4 +31,5 @@ Eventually data will be scraped myself, to added to the pipeline
 
 # Tasks
 1. Explore datasets to combine in single large dataset
-2. Train feature extractor with collected data
+2. Prepare data for feature extractor language model
+3. Train feature extractor with collected data
