@@ -57,5 +57,5 @@ try:
 except KeyboardInterrupt:
     print(blue(f"ENDING AT: {current}"))
     print(green("SAVING LABELING RESULTS"))
-    df['Label'][current] = 999
+    df.iloc[current,df.columns.get_loc("Label")]  = 999
     df.to_csv("data/combined_data_withlabel.csv")
