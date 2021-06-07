@@ -49,9 +49,10 @@ What are you waiting for? Apply today!
 
 The same way we treat our employees is how we treat all applicants – with respect. Discover Financial Services is an equal opportunity employer (EEO is the law). We thrive on diversity & inclusion. You will be treated fairly throughout our recruiting process and without regard to race, color, religion, sex, sexual orientation, gender identity, national origin, disability, or veteran status in consideration for a career at Discover."""
 
+
 button_states = {}
-# This function contains a boilerplate example of the 
-def search_result_block(job_title,company,location_,date,description,block_id,idx):
+# This function contains a boilerplate job posting layout
+def search_result_block(job_title,company,location_,date,description,block_id):
     col1, col2 = st.beta_columns(2)
     with col1:
         st.text(job_title)
@@ -61,15 +62,17 @@ def search_result_block(job_title,company,location_,date,description,block_id,id
     with col2:
         link = f'[Apply]({apply})'
         st.markdown(link, unsafe_allow_html=True)
-        button_states[block_id]= st.radio(
-        f"Label:{idx}",
-        ('Interesting', 'Not Interesting'))
+        button_states[block_id]= st.selectbox(
+        "Label",
+        ('Interesting', 'Not Interesting'),
+        key=block_id)
 
     with st.beta_expander("See Description"):
         st.markdown(description)
     
     
 def main():
+    
     # Title of the app
     st.title('Job Search Platform')
     
@@ -81,13 +84,12 @@ def main():
         location = st.text_input("Location","Chicago, IL")
         
     # typical job result
-    
     results = st.beta_container()
     with results:
-        search_result_block(job_title,company,location_,date,description,"b1",1)
-        search_result_block(job_title,company,location_,date,description,"b2",2)
-        search_result_block(job_title,company,location_,date,description,"b3",3)
-        search_result_block(job_title,company,location_,date,description,"b4",4)
+        search_result_block(job_title,company,location_,date,description,"b1")
+        search_result_block(job_title,company,location_,date,description,"b2")
+        search_result_block(job_title,company,location_,date,description,"b3")
+        search_result_block(job_title,company,location_,date,description,"b4")
         
     st.text(f"List of labels from current selection: {button_states['b1']}, {button_states['b2']},{button_states['b3']},{button_states['b4']}")
         
