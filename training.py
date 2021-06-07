@@ -18,7 +18,12 @@ training_sentences = sentences[0:training_size]
 validation_sentences = sentences[training_size:]
 training_labels = labels[0:training_size]
 validation_labels = labels[training_size:]
-print(type(training_sentences))
+
+
+last_label = int(df.index[df["Label"] == 999].tolist()[0])
+sentences = df["Job Description"].iloc[0:last_label].values.tolist()
+labels = df["Label"].iloc[0:last_label].values.tolist()
+
 
 tokenizer = DistilBertTokenizerFast.from_pretrained('distilbert-base-uncased')
 

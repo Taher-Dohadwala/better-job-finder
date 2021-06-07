@@ -6,13 +6,11 @@ The term Data Science is very generic and a job role can be very different with 
 
 ## Project Goal
 
-To create a job recommendation system specifically for Data science, to increase the number of job applied for, that match what you are interested in.
+To create a platform that pulls jobs from multiple sources and allows you to train your own recommendation model, to find interesting jobs that you might apply too.
 
 Features:
-    - Streaming data from job sites
+    - Streaming data from multiple job sites
     - Interesting/Not interesting classification
-    - Common filters (work experience, location, etc)
-    - Feedback loop for continuous training
 
 ## Purpose
 
@@ -30,6 +28,18 @@ Inital project development will be based on the data scraped from:
 Eventually data will be scraped myself, to added to the pipeline
 
 # Tasks
-1. Explore datasets to combine in single large dataset
-2. Prepare data for feature extractor language model
-3. Train feature extractor with collected data
+1. Create rough platform website with Streamlit
+2. Add functionality such as linking to data scraper,saving labeled jobs, running model on jobs
+3. Optimize recommendation model
+    - Dealing with disproportionate classes
+    - Training on Colab
+    - Finetune tokenenizer
+    - Finetune classifier
+
+
+
+# Monetization Capability
+Selling user personalized dataset of job keywords, location, and job results they thought are interesting or not interesting (liked or disliked).
+
+## How does this makes money?
+Selling that data to job sites gives them another dimension of characterization for each person. This can lead to them providing better job results, that end up being applied too.
