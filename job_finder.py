@@ -1,7 +1,7 @@
 """
-Run this script to see the UI interface for viewing jobs, labeling, and seeing recommendations
+Run this script to see the UI interface for viewing jobs and labeling
 
-Usage: streamlit run recommendation_platform.py
+Usage: streamlit run job_finder.py
 """
 
 import streamlit as st
@@ -56,7 +56,7 @@ def save_labels(position,location,job_titles,companies,locations,dates,applies,d
     df.to_csv(filename)
     
     
-def main():
+def app():
     # Title of the app
     st.title('Job Search Platform')
     
@@ -81,5 +81,5 @@ def main():
         save_labels(position,location,job_titles,companies,locations,dates,applies,descriptions)
             
 if __name__ == '__main__':
-    main()
+    app()
     
