@@ -1,6 +1,6 @@
 import streamlit as st
 import time
-
+from data_streamer import DataStreamer
 # Example data as test
 # https://www.monster.com/job-openings/lead-data-science-analyst-riverwoods-il--1d0c6760-e0b4-45df-b8e3-edd37a7028dc
 job_title = "Lead Data Science Analyst"
@@ -51,8 +51,12 @@ The same way we treat our employees is how we treat all applicants – with resp
 
 
 button_states = {}
+data_streamer = DataStreamer()
+
+
+
 # This function contains a boilerplate job posting layout
-def search_result_block(job_title,company,location_,date,description,block_id):
+def search_result_block(job_title,company,location_,date,apply,description,block_id):
     col1, col2 = st.beta_columns(2)
     with col1:
         st.text(job_title)
@@ -69,7 +73,13 @@ def search_result_block(job_title,company,location_,date,description,block_id):
 
     with st.beta_expander("See Description"):
         st.markdown(description)
-    
+
+@st.cache(show_spinner=False)
+def search(position,location):
+    data_streamer.search(position,location)
+    job_titles,companies,locations,dates,applies,descriptions = data_streamer.get_data()
+    return job_titles,companies,locations,dates,applies,descriptions
+
     
 def main():
     
@@ -79,19 +89,20 @@ def main():
     # typical job search website UI
     col1, col2 = st.beta_columns(2)
     with col1:
-        job = st.text_input('Job Search', 'Entry Level Data Science')
+        position = st.text_input('Job Search', 'Data Science')
     with col2:
         location = st.text_input("Location","Chicago, IL")
-        
+
     # typical job result
     results = st.beta_container()
+    with st.spinner("Getting Jobs..."):
+        job_titles,companies,locations,dates,applies,descriptions = search(position,location)
+    
     with results:
-        search_result_block(job_title,company,location_,date,description,"b1")
-        search_result_block(job_title,company,location_,date,description,"b2")
-        search_result_block(job_title,company,location_,date,description,"b3")
-        search_result_block(job_title,company,location_,date,description,"b4")
-        
+        for i, (job_title,company,location_,date,apply,description) in enumerate(zip(job_titles,companies,locations,dates,applies,descriptions)):
+            search_result_block(job_title,company,location_,date,apply,description,f"b{i}")
+    
     st.text(f"List of labels from current selection: {button_states['b1']}, {button_states['b2']},{button_states['b3']},{button_states['b4']}")
-        
+            
 if __name__ == '__main__':
     main()
