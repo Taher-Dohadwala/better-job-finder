@@ -26,16 +26,19 @@ Inital project development will be based on the data scraped from:
 - [Dataset 2](https://www.kaggle.com/rashikrahmanpritom/data-science-job-posting-on-glassdoor)
 - [Dataset 3](https://www.kaggle.com/andrewmvd/data-scientist-jobs)
 
-Eventually data will be scraped myself, to added to the pipeline
+## Scraped data
+So far Indeed is the only successfully scraped website
+Will add Glassdoor, and Monster
 
 # Tasks
-1. Create rough platform website with Streamlit
-2. Add functionality such as linking to data scraper,saving labeled jobs, running model on jobs
-3. Optimize recommendation model
-    - Dealing with disproportionate classes
-    - Training on Colab
-    - Finetune tokenenizer
-    - Finetune classifier
+- [x] Create rough platform website with Streamlit
+- [x] Add functionality such as linking to data scraper
+- [ ] Saving labeled jobs, running model on jobs
+- [ ] Optimize recommendation model
+        - Dealing with disproportionate classes
+        - Training on Colab
+        - Finetune tokenenizer
+        - Finetune classifier
 
 
 
