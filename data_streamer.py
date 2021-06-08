@@ -25,7 +25,7 @@ class DataSource_Indeed():
     """
     def __init__(self):
         # Based url template for indeed
-        self.base_url = 'https://www.indeed.com/jobs?q={}&l={}&sort=date'
+        self.base_url = 'https://www.indeed.com/jobs?q={}&l={}&sort=date&start={}'
         self.search_url = ""
         self.soup = None
         self.delay = 0.1
@@ -35,13 +35,13 @@ class DataSource_Indeed():
         self.dates = []
         self.applies = []
         self.descriptions = []
-        
+        self.page = 0
     
     def set_search(self,position,location):
         """Sets job search url, and page, by converting keywords and location into the needed format for Monster search url structure"""
         position = position.replace(" ","+")
         location = location.replace(" ", "+")
-        self.search_url = self.base_url.format(position,location)
+        self.search_url = self.base_url.format(position,location,self.page)
 
     def get_info(self):
         """Scrapes data from indeed """
