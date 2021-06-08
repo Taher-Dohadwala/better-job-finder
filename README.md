@@ -33,13 +33,14 @@ Will add Glassdoor, and Monster
 # Tasks
 - [x] Create rough platform website with Streamlit
 - [x] Add functionality such as linking to data scraper
-- [ ] Saving labeled jobs, running model on jobs
+- [x] Saving labeled jobs
+- [ ] Sidebar with recommendation
+- [ ] running model on jobs
 - [ ] Optimize recommendation model
         - Dealing with disproportionate classes
         - Training on Colab
         - Finetune tokenenizer
         - Finetune classifier
-
 
 
 # Monetization Capability
