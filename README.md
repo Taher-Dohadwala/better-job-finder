@@ -10,7 +10,8 @@ To create a platform that pulls jobs from multiple sources and allows you to tra
 
 Features:
     - Streaming data from multiple job sites
-    - Interesting/Not interesting classification
+    - Interesting/Not interesting classification data collection
+    - List of recommendated jobs
 
 ## Purpose
 
