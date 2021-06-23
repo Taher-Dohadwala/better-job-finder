@@ -1,80 +1,67 @@
+"""
+This script trains and retrains the recommendation model for the job finder platform
+
+All self supervised job description labels are stored in data/searches
+
+This script takes that labeled data, and fine-tunes the DistilBert transformer model from Huggingface
+
+The model will train for 20 epochs which will take ~5-10 mins to train (on gpu)
+*Recommended to copy data and training script into colab for execution*
+"""
 import pandas as pd
 import numpy as np
 import tensorflow as tf
+from sklearn.model_selection import train_test_split
 from transformers import DistilBertTokenizerFast
 from transformers import TFDistilBertForSequenceClassification
-from curtsies.fmtfuncs import red, bold, green, on_blue, yellow, blue
+import os
 
-df = pd.read_csv("data/combined_data_withlabels_300.csv")
+PATH = "data/searches"
+SAVE_PATH = "models/recommendation"
+# uncomment below to train on google colab
+'''
+from google.colab import drive
+drive.mount('/content/drive')
+PATH = "/content/drive/My Drive/data/searches"
+'''
 
-last_label = int(df.index[df["Label"] == 999].tolist()[0])
-sentences = df["Job Description"].iloc[0:last_label].values.tolist()
-labels = df["Label"].iloc[0:last_label].values.tolist()
-
-train_percentage = 0.9
-
-training_size = int(len(sentences)*train_percentage)
-training_sentences = sentences[0:training_size]
-validation_sentences = sentences[training_size:]
-training_labels = labels[0:training_size]
-validation_labels = labels[training_size:]
-
-
-last_label = int(df.index[df["Label"] == 999].tolist()[0])
-sentences = df["Job Description"].iloc[0:last_label].values.tolist()
-labels = df["Label"].iloc[0:last_label].values.tolist()
-
-
-tokenizer = DistilBertTokenizerFast.from_pretrained('distilbert-base-uncased')
-
-train_encodings = tokenizer(training_sentences,truncation=True,padding=True)
-val_encodings = tokenizer(validation_sentences,truncation=True,padding=True)
+def prepare_dataset():
+    pass
+    sentences = []
+    labels = []
+    # read each csv
+    # find all that are interesting and label 1, find all unintesting and label 0
+    # ignore unread
+    files = [f"{PATH}/{file}" for file in os.listdir(PATH) if file.endswith(".csv")]
+    
+    X_train, X_test, y_train, y_test = train_test_split(sentences, labels, test_size=0.1,stratify=labels, random_state=42)
+    tokenizer = DistilBertTokenizerFast.from_pretrained('distilbert-base-uncased')
+    train_encodings = tokenizer(X_train,truncation=True,padding=True)
+    val_encodings = tokenizer(X_test,truncation=True,padding=True)
 
 
-train_dataset = tf.data.Dataset.from_tensor_slices((
-    dict(train_encodings),
-    training_labels
-))
-val_dataset = tf.data.Dataset.from_tensor_slices((
-    dict(val_encodings),
-    validation_labels
-))
+    train_dataset = tf.data.Dataset.from_tensor_slices((
+        dict(train_encodings),
+        y_train
+    ))
+    val_dataset = tf.data.Dataset.from_tensor_slices((
+        dict(val_encodings),
+        y_test
+    ))
+    return train_dataset, val_dataset
 
-model = TFDistilBertForSequenceClassification.from_pretrained('distilbert-base-uncased',
-                                                              num_labels=2)
-print(model.summary())
+if __name__ == '__main__':
+    train_dataset, val_dataset = prepare_dataset()
+    model = TFDistilBertForSequenceClassification.from_pretrained('distilbert-base-uncased',num_labels=2)
 
-optimizer = tf.keras.optimizers.Adam(learning_rate=5e-5)
-model.compile(optimizer=optimizer, loss=model.compute_loss, metrics=[tf.keras.metrics.Recall(),tf.keras.metrics.Precision()])
-model.fit(train_dataset.shuffle(50).batch(16),
-          epochs=1,
-          batch_size=8,
-          validation_data=val_dataset.shuffle(50).batch(16))
-
-model.save_pretrained("tmp/job_interest")
-
-"""
-def make_prediction(loaded_model,example):
-    predict_input = tokenizer.encode(example,
-                                 truncation=True,
-                                 padding=True,
-                                 return_tensors="tf")
-    tf_output = loaded_model.predict(predict_input)[0]
-    tf_prediction = tf.nn.softmax(tf_output, axis=1).numpy()[0]
-    pred = tf.argmax(tf_prediction)
-    return pred
-
-
-loaded_model = TFDistilBertForSequenceClassification.from_pretrained("/tmp/job_interest")
-
-#make_prediction(loaded_model,validation_sentences)
-results = []
-for s in validation_sentences:
-    results.append(make_prediction(loaded_model,s))
-
-for p in results:
-    if p == 0:
-        print(red("NOT INTERESTING"))
-    else:
-        print(green("INTERSTING"))
-"""
+    model.compile(
+        optimizer=tf.keras.optimizers.Adam(learning_rate=5e-5),
+        loss=model.compute_loss)
+    
+    model.fit(
+        train_dataset.shuffle(16).batch(8),
+        epochs=20,
+        batch_size=8,
+        validation_data=val_dataset.shuffle(16).batch(8),
+        )
+    model.save_pretrained(SAVE_PATH)
