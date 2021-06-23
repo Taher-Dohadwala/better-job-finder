@@ -25,10 +25,11 @@ class DataSource_Indeed():
     """
     def __init__(self):
         # Based url template for indeed
-        self.base_url = 'https://www.indeed.com/jobs?q={}&l={}&sort=date&start={}'
+        self.base_url = 'https://www.indeed.com/jobs?q={}&l={}&start={}'
         self.search_url = ""
         self.soup = None
-        self.delay = 0.1
+        self.count = 0
+        self.delay = 0.5
         self.titles = []
         self.companies = []
         self.locations = []
@@ -46,8 +47,8 @@ class DataSource_Indeed():
     def get_info(self):
         """Scrapes data from indeed """
         page = requests.get(self.search_url)
-        self.soup = BeautifulSoup(page.content,"html.parser")
         
+        self.soup = BeautifulSoup(page.content,"html.parser")
         # Info for individual job posting
         cards = self.soup.find_all("div","jobsearch-SerpJobCard")
         for card in cards:
@@ -65,6 +66,7 @@ class DataSource_Indeed():
             job_description_tag = job_soup.find('div',{'id':'jobDescriptionText'})
             job_description = job_description_tag.text if job_description_tag else "N/A"
             self.descriptions.append(job_description)
+        self.count = self.count + len(self.titles)
             
     def get_data(self):
         """Returns scraped data """
@@ -91,6 +93,9 @@ class DataStreamer():
         """Gets data from all sources """
         job_titles,companies,locations,dates,applies,descriptions = self.indeed.get_data()
         return job_titles,companies,locations,dates,applies,descriptions
+
+    def get_count(self):
+        return self.indeed.count
     
     def save_to_csv(self,filename):
         """Save data to csv"""

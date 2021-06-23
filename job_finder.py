@@ -1,7 +1,5 @@
 """
-Run this script to see the UI interface for viewing jobs and labeling
-
-Usage: streamlit run job_finder.py
+This script contains the UI interface for viewing jobs and labeling
 """
 
 import streamlit as st
@@ -44,6 +42,7 @@ def search(position,location):
     """Takes a job position and location and returns aggregated job search results """
     data_streamer.search(position,location)
     job_titles,companies,locations,dates,applies,descriptions = data_streamer.get_data()
+    print(f"Total Jobs from Indeed: {data_streamer.get_count()}")
     return job_titles,companies,locations,dates,applies,descriptions
 
 
@@ -72,6 +71,7 @@ def app():
     results = st.beta_container()
     with st.spinner("Getting Jobs..."):
         job_titles,companies,locations,dates,applies,descriptions = search(position,location)
+    print(data_streamer.indeed.search_url)
         
     with results:
         for i, (job_title,company,location_,date,apply,description) in enumerate(zip(job_titles,companies,locations,dates,applies,descriptions)):
