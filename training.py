@@ -33,7 +33,9 @@ def prepare_dataset():
     # find all that are interesting and label 1, find all unintesting and label 0
     # ignore unread
     files = [f"{PATH}/{file}" for file in os.listdir(PATH) if file.endswith(".csv")]
-    
+    for file in files:
+        df = pd.read_csv(file)
+        
     X_train, X_test, y_train, y_test = train_test_split(sentences, labels, test_size=0.1,stratify=labels, random_state=42)
     tokenizer = DistilBertTokenizerFast.from_pretrained('distilbert-base-uncased')
     train_encodings = tokenizer(X_train,truncation=True,padding=True)
