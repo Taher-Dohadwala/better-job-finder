@@ -4,10 +4,10 @@ This script contains the UI interface for viewing jobs and labeling
 
 import streamlit as st
 import time
-from data_streamer import DataStreamer
+from streamlit_ui.data_streamer import DataStreamer
 import pandas as pd
 
-DATA_ROOT = "results/"
+DATA_ROOT = "data/searches/"
 button_states = {}
 data_streamer = DataStreamer()
 

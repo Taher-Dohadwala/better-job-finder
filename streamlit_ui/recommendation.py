@@ -4,8 +4,8 @@ This script contains the UI interface for viewing recommendation
 import random
 
 import streamlit as st
-from job_finder import search_result_block,search
-from data_streamer import DataStreamer
+from streamlit_ui.job_finder import search_result_block,search
+from streamlit_ui.data_streamer import DataStreamer
 
 import tensorflow as tf
 from transformers import DistilBertTokenizerFast
@@ -14,7 +14,7 @@ from transformers import TFDistilBertForSequenceClassification
 
 data_streamer = DataStreamer()
 tokenizer = DistilBertTokenizerFast.from_pretrained('distilbert-base-uncased')
-loaded_model = TFDistilBertForSequenceClassification.from_pretrained("tmp/job_interest")
+loaded_model = TFDistilBertForSequenceClassification.from_pretrained("models/recommendation")
 
 
 def search_result_block(job_title,company,location_,date,apply,description,confidence):
@@ -56,7 +56,7 @@ def make_prediction(example):
                                  return_tensors="tf")
     tf_output = loaded_model.predict(predict_input)[0]
     tf_prediction = tf.nn.softmax(tf_output, axis=1).numpy()[0]
-    pred = random.randint(0, 1)#tf.argmax(tf_prediction)
+    pred = tf.argmax(tf_prediction)
     confidence = tf_prediction[pred]
     return pred,confidence
     
@@ -75,7 +75,6 @@ def app():
     with st.spinner("Finding Interesting Jobs..."):
         job_titles,companies,locations,dates,applies,descriptions = search(position,location)
     
-    st.text("Recommended Jobs Only:")
     predictions = []
     confidences = []
     with st.spinner("Model Inference..."):
@@ -83,12 +82,16 @@ def app():
             pred,conf = make_prediction(description)
             predictions.append(pred)
             confidences.append(conf)
-        
-    # TODO: RUN MODEL ON DESCRIPTIONS
+    no_results = True
     with results:
+        st.text("Recommended Jobs Only:")
         for i,(pred,conf,job_title,company,location_,date,apply,description) in enumerate(zip(predictions,confidences,job_titles,companies,locations,dates,applies,descriptions)):
-            if pred == 1:
+            if pred == 1 and conf > 0.5:
                 search_result_block(job_title,company,location_,date,apply,description,conf)
+                if no_results:
+                    no_results = False
+        if no_results:
+            st.text("No matches with this search. Try another search")
             
             
 if __name__ == '__main__':

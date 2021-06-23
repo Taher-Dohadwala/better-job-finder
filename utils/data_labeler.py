@@ -17,15 +17,17 @@ import pandas as pd
 import numpy as np
 from curtsies.fmtfuncs import red, bold, green, on_blue, yellow, blue
 
+
+PATH = "../data/raw/combined_data_withlabel.csv"
 # helper function to reset labels
 def quick_reset():
-    df = pd.read_csv("data/combined_data.csv")
+    df = pd.read_csv("../data/raw/combined_data.csv")
     df["Label"] = np.nan
-    df.to_csv("data/combined_data_withlabel.csv")
+    df.to_csv("../data/raw/combined_data_withlabel.csv")
     
 
 # load raw data in
-df = pd.read_csv("data/combined_data_withlabel.csv")
+df = pd.read_csv(PATH)
 
 # finds place where previous labeling session ended
 def find_continue_point(df):
@@ -58,4 +60,4 @@ except KeyboardInterrupt:
     print(blue(f"ENDING AT: {current}"))
     print(green("SAVING LABELING RESULTS"))
     df.iloc[current,df.columns.get_loc("Label")]  = 999
-    df.to_csv("data/combined_data_withlabel.csv")
+    df.to_csv(PATH)
