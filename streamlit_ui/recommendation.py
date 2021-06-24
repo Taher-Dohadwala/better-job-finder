@@ -71,12 +71,15 @@ def app():
     with col2:
         location = st.text_input("Location","Chicago, IL")
     
+    # display loading status
     results = st.beta_container()
     with st.spinner("Finding Interesting Jobs..."):
+        # scrape job data from all data sources
         job_titles,companies,locations,dates,applies,descriptions = search(position,location)
     
     predictions = []
     confidences = []
+    # display loading status
     with st.spinner("Model Inference..."):
         for description in descriptions:
             pred,conf = make_prediction(description)
@@ -84,6 +87,7 @@ def app():
             confidences.append(conf)
     no_results = True
     with results:
+        # display job info based on model recommendations only
         st.text("Recommended Jobs Only:")
         for i,(pred,conf,job_title,company,location_,date,apply,description) in enumerate(zip(predictions,confidences,job_titles,companies,locations,dates,applies,descriptions)):
             if pred == 1 and conf > 0.5:

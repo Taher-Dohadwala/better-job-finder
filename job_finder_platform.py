@@ -1,6 +1,10 @@
 
 """
-Run this script to see the UI for both search,viewing,labeling jobs and viewing recommended jobs
+Run this script to launch the main app.
+Functionality:
+1) Search jobs and mark as interesting or not interesting
+2) Save labeled data
+3) View recommended jobs
 
 Usage:
 streamlit run job_finder_platform.py
