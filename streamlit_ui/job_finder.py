@@ -64,14 +64,14 @@ def app():
     with col1:
         position = st.text_input('Job Search', 'Data Science')
     with col2:
-        location = st.text_input("Location","Chicago, IL")
+        location = st.text_input("Location","Worldwide")
 
     
     # typical job result
     results = st.beta_container()
     with st.spinner("Getting Jobs..."):
         job_titles,companies,locations,dates,applies,descriptions = search(position,location)
-    print(data_streamer.indeed.search_url)
+        print(data_streamer.indeed.search_url)
         
     with results:
         for i, (job_title,company,location_,date,apply,description) in enumerate(zip(job_titles,companies,locations,dates,applies,descriptions)):
