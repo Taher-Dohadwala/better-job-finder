@@ -3,6 +3,7 @@ echo "Setting up directory structure"
 mkdir -p data
 mkdir -p data/searches
 mkdir -p models
+mkdir -p models/recommendation
 echo "Creating virtual environemnt with venv"
 python3 -m venv venv
 source venv/bin/activate
