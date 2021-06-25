@@ -6,16 +6,15 @@
 
 ## Project Goal
 
-Develop a bring your own model job search platform, where you can label and train your own personalized recommendation model.
-
+To develop a "bring your own model" job search platform where you can label and train your own personalized job recommendation model.
 
 ----------------------------------------------------------------------------------------------------
 
 ## Background
 
-Job titles often have different underlying roles. When looking for a job for a particular role, the job title alone cannot guarentee the job role matching what you are looking for.
+Job titles often have different underlying roles. When looking for a job with a particular role, the job title alone cannot guarentee a role matching what you are looking for.
 
-For example, the serach term Data science is generic and a job role can be very different with the same title. Data science can be broken down into 3 main roles: Data engineer, Data analyst, ML engineer. The problem with job posting websites is that the particular data science role you are looking for is filled with the noise of the other roles. By having a recommendation model that is based on your own preferences can help de-noise the job search space.
+For example, the job title "Data Science" is generic, and contains different job roles. Data science can be broken down into 3 main roles: Data engineer, Data analyst, and ML engineer. The problem with job posting websites is that the particular data science role you are looking for is filled with the noise of the other roles. By having a recommendation model that is based on your own preferences, it can help to reduce noise in the job search space.
 
 
 ----------------------------------------------------------------------------------------------------
