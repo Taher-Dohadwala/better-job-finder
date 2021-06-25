@@ -6,17 +6,17 @@
 
 ## Project Goal
 
-Create a user friendly platform that pulls jobs from multiple sources and allows you to label and train your own recommendation model based on the entire job description.
+Develop a bring your own model job search platform, where you can label and train your own personalized recommendation model.
+
 
 ----------------------------------------------------------------------------------------------------
 
 ## Background
 
-The term Data science is very generic and a job role can be very different with the same title. Data science can be broken down into 3 main roles: Data engineer, Data analyst, ML engineer. The problem with job posting websites is that the particular data science role you are looking for is filled with the noise of the other roles.
+Job titles often have different underlying roles. When looking for a job for a particular role, the job title alone cannot guarentee the job role matching what you are looking for.
 
-By using the full information of a job description, better recommendations can be made from incorporating the company description of the role as well as the skills required.
+For example, the serach term Data science is generic and a job role can be very different with the same title. Data science can be broken down into 3 main roles: Data engineer, Data analyst, ML engineer. The problem with job posting websites is that the particular data science role you are looking for is filled with the noise of the other roles. By having a recommendation model that is based on your own preferences can help de-noise the job search space.
 
-Modern day Transformer models excel at extracting valuable patterns in large sequences of text, and are the perfect choice to build a recommendation system from.
 
 ----------------------------------------------------------------------------------------------------
 
@@ -27,6 +27,7 @@ Modern day Transformer models excel at extracting valuable patterns in large seq
 
 # Table of contents
 * [Installation](#installation)
+* [Usage](#usage)
 * [Initial data collection](#initial-data-collection)
 * [Recommendation Model](#recommendation-model)
 * [Data Streaming](#data-streaming)
@@ -70,9 +71,9 @@ First attempts to scrape data from job posting failed due scraping too much and 
 
 Project development then continued with data scraped and posted on Kaggle:
 
-- [Dataset 1](https://www.kaggle.com/jobspikr/data-scientist-job-postings-from-the-usa)
-- [Dataset 2](https://www.kaggle.com/rashikrahmanpritom/data-science-job-posting-on-glassdoor)
-- [Dataset 3](https://www.kaggle.com/andrewmvd/data-scientist-jobs)
+- [10000 Data Scientist Job Postings from the USA](https://www.kaggle.com/jobspikr/data-scientist-job-postings-from-the-usa)
+- [Data Science Job Posting on Glassdoor](https://www.kaggle.com/rashikrahmanpritom/data-science-job-posting-on-glassdoor)
+- [Data Scientist Jobs](https://www.kaggle.com/andrewmvd/data-scientist-jobs)
 
 These 3 datasets were explored and combined to form the initial training dataset for our language model.
 
