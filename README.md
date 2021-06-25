@@ -19,8 +19,19 @@ By using the full information of a job description, better recommendations can b
 Modern day Transformer models excel at extracting valuable patterns in large sequences of text, and are the perfect choice to build a recommendation system from.
 
 ----------------------------------------------------------------------------------------------------
-## Demo
+
+## Demo <a name="demo"></a>
 ![demo](https://user-images.githubusercontent.com/23107070/123326306-13e20900-d507-11eb-8de6-6b5467550a01.gif)
+
+----------------------------------------------------------------------------------------------------
+
+# Table of contents
+* [Installation](#installation)
+* [Initial data collection](#initial-data-collection)
+* [Recommendation Model](#recommendation-model)
+* [Data Streaming](#data-streaming)
+* [Job Finder Platform](#job-finder-platform)
+* [Monetization Capability](#monetization-capability)
 
 ----------------------------------------------------------------------------------------------------
 ## Installation
@@ -57,7 +68,7 @@ python training.py
 First attempts to scrape data from job posting failed due scraping too much and being captcha blocked.
 
 
-Project development then continued with data scrape and posted on Kaggle:
+Project development then continued with data scraped and posted on Kaggle:
 
 - [Dataset 1](https://www.kaggle.com/jobspikr/data-scientist-job-postings-from-the-usa)
 - [Dataset 2](https://www.kaggle.com/rashikrahmanpritom/data-science-job-posting-on-glassdoor)
@@ -97,7 +108,7 @@ The second being the search and view only the recommended jobs. Users can enter 
 
 ----------------------------------------------------------------------------------------------------
 
-## Monetization Capability (bonus thought exercise)
+## Monetization Capability 
 Selling user personalized dataset of job searches, location, and job results that they thought are interesting or not interesting.
 
 ### How does this makes money?
