@@ -12,9 +12,9 @@ To develop a "bring your own model" job search platform where you can label and 
 
 ## Background
 
-Job titles often have different underlying roles. When looking for a job with a particular role, the job title alone cannot guarentee a role matching what you are looking for.
+Job titles often have different underlying roles. When looking for a job with a particular role, the job title alone cannot guarantee a role matching what you are looking for.
 
-For example, the job title "Data Science" is generic, and contains different job roles. Data science can be broken down into 3 main roles: Data engineer, Data analyst, and ML engineer. The problem with job posting websites is that the particular data science role you are looking for is filled with the noise of the other roles. By having a recommendation model that is based on your own preferences, it can help to reduce noise in the job search space.
+For example, the job title "Data Scientist" is generic, and contains different job roles. Data science can be broken down into 3 main roles: Data engineer, Data analyst, and ML engineer. The problem with job posting websites is that the particular data science role you are looking for is filled with the noise of the other roles. By having a recommendation model that is based on your own preferences, it can help to reduce noise in the job search space.
 
 
 ----------------------------------------------------------------------------------------------------
@@ -109,9 +109,9 @@ The second being the search and view only the recommended jobs. Users can enter 
 ----------------------------------------------------------------------------------------------------
 
 ## Monetization Capability 
-Selling user personalized dataset of job searches, location, and job results that they thought are interesting or not interesting.
+Selling user personalized dataset of job searches, location, and job results that they thought are interesting and not interesting.
 
 ### How does this makes money?
-Selling that data to job sites gives them another dimension of characterization for each person. This can lead to them providing better job results, that end up being applied too.
+Selling data to job sites gives them another dimension of characterization for each person. This can lead to them providing better job results, that end up being applied too.
 
 ----------------------------------------------------------------------------------------------------
